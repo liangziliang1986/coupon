@@ -1,0 +1,21 @@
+<div class="form-group" id="checkbox_list">
+    <label class="col-md-4 control-label">{$label_name}</label>
+    <div class="col-md-8" style="margin-left:-10px;">
+        <foreach name="list" item="single">
+            <label class="checkbox-inline" <if condition="$key eq 0" >
+                style="margin-left:10px;"
+            </if> for="{$single['en_name']}">
+                <input type="checkbox" id="{$single['en_name']}" name="{$single['en_name']}" value="{$single['zh_name']}"> {$single['zh_name']}
+            </label>
+        </foreach>
+        <label class="checkbox-inline" for="example-inline-checkbox1">
+            <input type="checkbox" id="example-inline-checkbox1" name="example-inline-checkbox1" value="option1"> One
+        </label>
+        <label class="checkbox-inline" for="example-inline-checkbox2">
+            <input type="checkbox" id="example-inline-checkbox2" name="example-inline-checkbox2" value="option2"> Two
+        </label>
+        <label class="checkbox-inline" for="example-inline-checkbox3">
+            <input type="checkbox" id="example-inline-checkbox3" name="example-inline-checkbox3" value="option3"> Three
+        </label>
+    </div>
+</div>

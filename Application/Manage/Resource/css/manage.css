@@ -1,0 +1,33 @@
+.nav-tabs li a{
+    border-color: #eaedf1;
+    background-color: #f9fafc;
+}
+.nav-tabs li a i{
+    font-size:12px;position:relative;left:5px;top:-1px;
+}
+.nav-tabs li a i:hover{
+    cursor:pointer;
+}
+.rotateInfi {
+    -webkit-animation: rotateInfinite 1s linear infinite;
+    /*-webkit-animation: move 1s ease-in-out 1s 3 alternate forwards*/
+}
+ #user-tabs{
+    margin-bottom:0 !important;
+}
+.header-section{
+    padding-bottom:15px;
+} 
+#user-nav-top{
+    display: none;
+}
+@-webkit-keyframes rotateInfinite
+{
+    0%{
+        transform:rotate(0);
+    }
+    100%
+    {
+        transform:rotate(-360deg);
+    }
+}
