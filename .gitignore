@@ -2,3 +2,5 @@
 /.svn
 /Application/Runtime
 /Uploads
+/sftp-config.json
+/.gitignore

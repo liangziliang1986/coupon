@@ -80,13 +80,17 @@
                 </div>
             </div>
         </div>
+        <div id="user-tip">
+            <div class="success alert-success"></div>
+            <div class="error alert-danger"></div>
+        </div>
         <!-- END User Settings -->
 
 
         <!-- Bootstrap.js, Jquery plugins and Custom JS code -->
-        <script src="__PUBLIC__/js/init.js"></script>
         <script src="__PUBLIC__/js/manage.js"></script>
         <script src="__PROUI__/js/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/bootbox.js"></script>
         <script src="__PROUI__/js/plugins.js"></script>
         <script src="__PROUI__/js/app.js"></script>
         <!-- Google Maps API + Gmaps Plugin, must be loaded in the page you would like to use maps (Remove 'http:' if you have SSL) -->
@@ -96,6 +100,8 @@
         <!-- Load and execute javascript code used only in this page -->
         <script src="__PROUI__/js/pages/index.js"></script>
         <script src="/Application/Manage/Resource/js/less.min.js"></script>
+        <script src="__PUBLIC__/js/init.js"></script>
+        <script src="__PUBLIC__/js/jquery.spinner.min.js"></script>
         <script>$(function(){ Index.init(); });</script>
     </body>
 </html>

@@ -9,4 +9,16 @@ class PluginController extends BaseController {
     public function index () {
         $this->display();
     }
+
+    public function ueditor () {
+        $this->display();
+    }
+
+    public function uploadifive () {
+        $this->display();
+    }
+
+    public function test () {
+        $this->display();   
+    }
 }

@@ -8,20 +8,24 @@
         <h4 class="sub-header">表单全部组件展示</h4>
         <div class="row">
             <form id="basic-wizard" action="page_forms_wizard.php" method="post" class="form-horizontal form-bordered ui-formwizard">
-                {:W('Form/Input', array('road_num', 'road_num', '线路名称', $road_num, '请输入路线名称'))}
-                {:W('Form/check_box_list', array($list, '途经公交站'))}
-                {:W('Form/stations_list', array('公交站顺序'))}
-                {:W('Form/hidden_input', array('station_sort', 'station_sort', ''))}
-                <!-- 这是uploadify -->
-                <div class="form-group">  
-                    <div id="queue"></div>
-                    <label class="col-md-4 control-label" for="example-username">
-                        <input class="file_upload" id="file_upload" queueID='queue' name="file_upload" type="file" multiple="true">
-                    </label>
-                    <div class="col-md-6">
-                        <a style="position: relative; top: 8px;" href="javascript:$('#file_upload').uploadifive('upload')">确定上传</a>
+                {:W('Form/Input', array('road_num', 'road_num', '输入框', $road_num, '这是一个输入框'))}
+                {:W('Form/check_box_list', array($list, '多选框'))}
+                <div class="form-group">
+                    <label class="col-md-4 control-label">隐藏框</label>
+                    {:W('Form/hidden_input', array('station_sort', 'station_sort', ''))}
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">搜索右框</label>
+                    <div class="col-md-8" id="sort_station_list" style="margin-left:-30px;">
+                        {:W('Form/search', array('search', 'search', '搜索', '请输入名字', 'right'))}
                     </div>
                 </div>
+                {:W('Form/multiple_select', array('select', 'select', $muloptions, '多选下拉选项', '请选择姓名(可多选)'))}
+                {:W('Form/single_select', array('sselect', 'sselect', $single_options, '单选下拉选项', '请选择姓名'))}
+                {:W('Form/checkbox', array('checkbox', 'checkbox', 'checkbox按钮'))}
+                {:W('Form/spinner', array('queue', 'queue', '排序', 3, '数值越大，越靠前'))}
+                {:W('Form/Textarea', array('summary', 'summary', '店铺描述', $summary, '请填写店铺描述'))}
+                {:W('Form/ueditor', array('editor', 'editor', '商铺详情', $value, '数值越大，越靠前'))}
             </form>
         </div>
     </div>

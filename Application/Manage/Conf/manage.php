@@ -41,17 +41,23 @@
                 'icon'  => 'gi gi-stopwatch'
             ),
             array(
+                'name'  => '授权',
+                'en_name'  => 'auth',
+                'url'   => '/manage/auth/index',
+                'class'  => 'ajaxLink',
+                'icon'  => 'gi gi-stopwatch'
+            ),
+            array(
                 'name'  => '弹窗',
                 'en_name'  => 'modal',
-                'url'   => '/manage/index/test1',
                 'url'   => '/manage/modal/index',
                 'class'  => 'ajaxLink',
                 'icon'  => 'gi gi-cutlery'
             ),
             array(
-                'name'  => '攻略',
-                'en_name'  => 'tip',
-                'url'   => '/manage/index/test2',
+                'name'  => '分页',
+                'en_name'  => 'page',
+                'url'   => '/manage/page/index',
                 'class'  => 'ajaxLink',
                 'icon'  => 'gi gi-book'
             ),
@@ -89,17 +95,20 @@
                     array(
                         'name'  => 'uploadify',
                         'en_name'  => 'uploadify',
-                        'url'   => '/manage/index/test3',
+                        'url'   => '/manage/plugin/uploadifive',
                         'class'  => 'ajaxLink',
                     ),
                     array(
                         'name'  => 'UEditor',
                         'en_name'  => 'UEditor',
-                        'url'   => 'page_forms_components.php'
+                        'url'   => '/manage/plugin/ueditor',
+                        'class'  => 'ajaxLink',
                     ),
                     array(
                         'name'  => 'Validation',
-                        'url'   => 'page_forms_validation.php'
+                        'en_name'  => 'Validation',
+                        'url'   => '/manage/plugin/test',
+                        'class'  => 'ajaxLink',
                     ),
                     array(
                         'name'  => 'Wizard',

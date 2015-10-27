@@ -21,6 +21,7 @@ class ModalController extends BaseController {
         $array = array(
             'dialog' => 'callBack(\'' . $html . '\')',
             'eval' => 'eva("a")',
+            'eval2' => 'eva2("ccc")',
         );
         echo json_encode($array);
     }

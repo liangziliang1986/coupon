@@ -42,3 +42,59 @@ body{
 .table thead > tr > th {
     font-weight: normal;
 }
+
+#stations_list {
+    .col-md-8{
+        .checkbox-inline:first-child{
+            margin-left:10px;
+        }
+    }
+}
+#user-tip{
+    position:absolute;display:none;top:50px;
+    .success, .error {
+        display:none;padding:10px 20px;font-size:18px;
+    }
+}
+
+.switch{
+    .selectable
+}
+.selectable{
+    -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+}
+
+//spinner插件
+.spinner.input-group .input-group-addon a.spin-up, .spinner.input-group .input-group-addon a.spin-down{
+    height: 10px; width: 10px; font-size: 14px; overflow: hidden; display: block; text-align: center; text-decoration: none; position: relative; color: #999; 
+}
+.spinner.input-group .input-group-addon a.spin-up .icon-sort-down, .spinner.input-group .input-group-addon a.spin-down .icon-sort-down {
+    position: relative;
+    top: -6px;
+}
+[class^="icon-"], [class*=" icon-"] {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+}
+.input-group-addon{
+     min-width: auto; 
+}
+.icon-sort-up:before {
+    content: "\f0de";
+}
+
+.icon-sort-down:before {
+    content: "\f0dd";
+}
+.user-full-form{
+    .col-md-4{
+        // .col-md-2;
+        width:16.66666667%;
+    }
+    .col-md-6{
+        width:66.66666667%;
+    }
+}

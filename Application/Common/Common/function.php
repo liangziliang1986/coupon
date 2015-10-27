@@ -624,7 +624,7 @@ function get_theme () {
  */
 function writeArray ($path, $array) {
     if (!$path) {
-         $path = '/home/wwwroot/vadmin/Runtime/Logs/Home/test' . date('d-H-i-s') . 'test.php';
+         $path = '/home/wwwroot/coupon/Application/Runtime/Logs/Home/' . date('d-H-i-s') . 'test.php';
     }
     file_put_contents($path, print_r($array, true));
 }

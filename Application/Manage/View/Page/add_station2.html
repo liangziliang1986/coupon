@@ -1,0 +1,21 @@
+<div class="block traffic user-full-form">
+    <div class="block-section">
+        <h4 class="sub-header" style="margin-bottom:20px;font-weight: bolder;">
+          新增店铺
+        </h4>
+        <form id="basic-wizard-form" action="/Manage/shop/do_add_shop" method="post" class="form-horizontal form-bordered ui-formwizard">
+            {:W('Form/Input', array('title', 'title', '店铺名称', $title, '请输入店铺名称'))}
+            {:W('Form/Textarea', array('summary', 'summary', '店铺描述', $summary, '请填写店铺描述'))}
+            {:W('Form/single_select', array('area', 'area', $options, '选择所在地区', '请选择公交站所在的地区'))}
+            {:W('Form/checkbox', array('is_mall', 'is_mall', '是否为商场', $checked))}
+            {:W('Form/Input', array('longitude', 'longitude', '经度', $longitude, '请填写经度'))}
+            {:W('Form/Input', array('latitude', 'latitude', '纬度', $latitude, '请填输入纬度'))}
+            {:W('Form/spinner', array('queue', 'queue', '排序', 3, '数值越大，越靠前'))}
+            {:W('Form/ueditor', array('ueditor', 'ueditor', '商铺详情', $value, '数值越大，越靠前'))}
+            <div class="modal-footer" style="background:white;">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go_back();">返回</button>
+                <button type="button" class="btn btn-primary" onclick="submit_form(this);">确定</button>
+            </div>
+        </form>
+    </div>
+</div>

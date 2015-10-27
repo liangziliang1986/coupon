@@ -1,0 +1,17 @@
+<div class="form-group">
+    <label class="col-md-4 control-label" for="{$id}">{$label_name}</label>
+    <div class="col-md-6">
+    <!-- {:var_dump($options)} -->
+        <select id="{$id}" name="{$name}" class="select-chosen" data-placeholder="{$place_holder}" style="width: 100%;" multiple>
+            <foreach name="options" item="single">
+                <option value="{$single['key']}" <if condition="$single['selected']" >
+                    selected
+                </if>>{$single['value']}</option>
+            </foreach>
+        </select>
+        <span class="help-block">{$help_block}</span>
+    </div>
+</div>
+<script type="text/javascript">
+      $("#{$id}").chosen({no_results_text : "对不起，没有您要搜索的内容"});
+</script>

@@ -1,0 +1,58 @@
+<ul class="pagination pagination-sm">
+  <li class="prev disabled"><a <if condition="$page neq 1" >
+      onclick="return prevPage();"
+  </if> href="javascript:;"><i class="fa fa-angle-left"></i></a></li>
+  <for start="1" end="$page_num + 1" step="1" name="i">
+    <li <if condition="$page eq $i" >
+        class="active"
+    </if>><a onclick="return getPage(this);" href="/page/{$i}">{$i}</a></li>
+  </for>
+  <!-- <li class="active"><a onclick="return getPage(this);" href="javascript:void(0)">1</a></li>
+  <li><a href="javascript:void(0)">3</a></li>
+  -->
+  <li class="next"><a <if condition="$page_num neq $page" >
+       onclick="return nextPage();"
+  </if> href="javascript:void(0)"><i class="fa fa-angle-right"></i></a></li>
+</ul>
+<script type="text/javascript">
+    function init_page () {
+      set_href();
+      $("#user-tab-content li").removeClass('disabled');
+      if ($("#user-tab-content .pagination .active").next().hasClass('next')) {
+          $("#user-tab-content .pagination .active").next().addClass('disabled');
+      }
+      if ($("#user-tab-content .pagination .active").prev().hasClass('prev')) {
+          $("#user-tab-content .pagination .active").prev().addClass('disabled');
+      }
+    }
+
+    init_page();
+    function set_href () {
+      var storage = $("#sidebar .active").attr('data-tab') + 'url';
+      var base_url = window.localStorage[storage];
+      $("#user-tab-content .active .pagination a").each(function () {
+        if (!$(this).parent().hasClass('prev') && !$(this).parent().hasClass('next')) {
+          base_url = base_url.replace(/\/+page\/\d+/i, '');
+          $(this).attr('href', base_url + $(this).attr('href'));
+        }
+      })
+    }
+
+    function prevPage () {
+        var url = $("#user-tab-content .pagination .active").prev().find('a').attr('href');
+        page(url);
+    }
+
+    function nextPage () {
+        var url = $("#user-tab-content .pagination .active").next().find('a').attr('href');
+        page(url);
+    }
+
+    function getPage (_this) {
+        var url = $(_this).attr('href');
+        page(url);
+        return false;
+    }
+
+    
+</script>

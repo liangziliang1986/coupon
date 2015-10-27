@@ -8,15 +8,35 @@ class IndexController extends BaseController {
     }
 
     public function test () {
+        $a = $this->parsetReceivePostData();
         layout(false);
         $this->ajax_display('test');
     }
+
+
+    public function parsetReceivePostData()
+    {
+        $post = file_get_contents('php://input');
+        var_dump($post);die;
+        // $post = $GLOBALS['HTTP_RAW_POST_DATA'];
+        $data = simplexml_load_string($post,'SimpleXMLElement',LIBXML_NOCDATA);
+
+        if($data !==false)
+        {
+            $this->receive = $data;
+        }
+
+        return $data;
+    }
+
+
     public function test1 () {
         layout(false);
         $this->html = $this->fetch('test1');
         // sleep(5);
         $this->display();
     }
+
     public function ajax_fetch () {
         
         $this->ajax_display('ajax_fetch');
@@ -32,10 +52,5 @@ class IndexController extends BaseController {
             // 'eval' => 'eva("a")',
         );
         echo json_encode($array);
-    }
-    public function test3 () {
-        layout(false);
-        $this->html = $this->fetch('test3');
-        $this->display();
     }
 }

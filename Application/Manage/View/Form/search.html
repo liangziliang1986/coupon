@@ -1,0 +1,27 @@
+<if condition="$direction eq 'right'" >
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary"> <if condition="$ico" >
+                        <i class="fa fa-search"></i>
+                    </if> {$label_name}</button>
+                </span>
+                <input type="text" id="{$id}" name="{$name}" class="form-control" placeholder="{$place_holder}">
+            </div>
+        </div>
+    </div>
+<elseif condition="$direction eq 'left'"/>
+    <div class="form-group">
+        <div class="col-md-12">
+            <div class="input-group">
+                <input type="email" id="{$id}" name="{$name}" class="form-control" placeholder="{$place_holder}">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary"> <if condition="$ico" >
+                        <i class="fa fa-search"></i>
+                    </if> {$label_name}</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</if>

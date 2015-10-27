@@ -4,7 +4,8 @@ var sortable = Sortable.create(el);*/
 var hide_home_view = false;
 Sortable.create($("#user-tabs")[0], {
         animation: 150,});
-
+//设置弹框语言
+bootbox.setLocale('zh_CN');
 window.localStorage.clear();
 window.localStorage.sort = 'welcome ';
 
@@ -38,7 +39,7 @@ function clearNav (text) {
         return true;
     }
 };
-function refresh (_this, url, data_tab, data) {
+function refresh (_this, url, data_tab, data, fn) {
     // var text = $(_this).text();
     var text = $("#sidebar a:contains(" + $(_this).text() + ")").attr('data-tab');
     var data_tab = data_tab || text;
@@ -47,11 +48,13 @@ function refresh (_this, url, data_tab, data) {
     setStorage(text + 'url', u);
     loadding($(_this).find('i'));
     $("#" + data_tab).html('');
-    // return;
     getTabContent(u, data_tab, function (response) {
             $("#" + data_tab).html(response);
             unloading($(_this).find('i'));
             $("#user-tab-content").trigger("initUploadifive", ["Hello","World!"]);
+            if (fn) {
+                fn();
+            }
         }, data);
 };
 function loadding ($dom) {
@@ -61,7 +64,6 @@ function unloading ($dom) {
     $dom.removeClass('fa fa-undo rotateInfi').addClass('gi gi-remove_2');
 };
 function sortTab (text) {
-    // console.log(id);
     var id = $("#sidebar a:contains(" + text + ")").attr('data-tab');
     var sort = window.localStorage.sort;
     if (sort.indexOf(id) != -1) {
@@ -108,7 +110,7 @@ function removeTab (_this) {
     event.preventDefault();
 };
 function createTabNav (text, data_tab) {
-    $("#user-tabs").append($('<li onclick="return tab(this);" ondblclick="refresh(this);" class="active"><a href="#' + data_tab + '">' + text + '<i class="gi gi-remove_2" onclick="removeTab(this);"></i></a></li>'));
+    $("#user-tabs").append($('<li onclick="return tab(this);" ondblclick="refresh(this);" class="active"><a onclick="return false;" href="#' + data_tab + '">' + text + '<i class="gi gi-remove_2" onclick="removeTab(this);"></i></a></li>'));
     $("#user-tab-content").append($('<div class="tab-pane active" id="' + data_tab + '">' + text + '</div>'));
 };
 function checkNavEmpty () {
@@ -196,6 +198,7 @@ $(".ajaxLink").click(function () {
 $("#user-tab-content").click(function (ev) {
     var url = $(ev.target).attr('href') || $(ev.target).parents('a').attr('href');
     var data = $(ev.target).attr('data') || $(ev.target).parents('a').attr('data');
+    //弹框功能
     if ($(ev.target).hasClass('ajaxLink') || $(ev.target).parents('a').hasClass('ajaxLink')) {
         $.ajax({
             type : 'post',
@@ -215,6 +218,7 @@ $("#user-tab-content").click(function (ev) {
             }
         });
         return false;
+    //获取页面功能
     } else if ($(ev.target).hasClass('ajaxFetch') || $(ev.target).parents('a').hasClass('ajaxFetch')) {
         
         if (url.indexOf('?') !== -1) {
@@ -229,20 +233,67 @@ $("#user-tab-content").click(function (ev) {
         var dom = $("#user-tabs .active");
         refresh(dom, url, null, data);
         return false;
+    //删除功能
+    } else if ($(ev.target).hasClass('ajaxDelete')) {
+        bootbox.confirm({
+            size: 'small',
+            locale: 'zh_CN',
+            message: "删除该数据后不能恢复，是否继续删除?", 
+            callback: function(result){ 
+                if (result) {
+                    var url = $(ev.target).attr('href');
+                    $.ajax({
+                        type : 'get',
+                        url : url,
+                        success : function (response) {
+                            var url = $("#sidebar .active").attr('href');
+                            var response = $.parseJSON(response);
+                            page(url, function () {
+                                set_tip_left(response);
+                            });
+                        }
+                    });
+                }
+            }
+        });
+       /* bootbox.confirm("删除该数据后不能恢复，是否继续删除?", function(result) {
+          if (result) {
+            var url = $(ev.target).attr('href');
+            $.ajax({
+                type : 'get',
+                url : url,
+                success : function (response) {
+                    var url = $("#sidebar .active").attr('href');
+                    var response = $.parseJSON(response);
+                    page(url, function () {
+                        set_tip_left(response);
+                    });
+                }
+            });
+          }
+        }); */
+        return false;
     }
 });
+
+
+//
+
 function callBack (html) {
     $('#mask').remove();
     $('body').append(html);
     $('#mask').modal('show');
 };
+
+//
 function showMask () {
     $("#mask").show();
 };
 
-//init uploadify 
+//获取页面后初始化插件
 $("#user-tab-content").bind("initUploadifive", function (event) {
   if ($(this).find('.file_upload').length) {
+    //init uploadify 
     $(this).find('.file_upload').each(function (index, ele) {
         var queueID = $(ele).attr('queueID');
         $(ele).uploadifive({
@@ -258,24 +309,99 @@ $("#user-tab-content").bind("initUploadifive", function (event) {
         });
     });
   };
-  if ($(this).find('.ueditor').length) {
-    $(this).find('.ueditor').each(function (index, ele) {
+  //alert('init');
+  //init ueditor
+  if ($(this).find('.tab-pane.active .ueditor').length) {
+    var scope = $("#sidebar .active").attr('data-tab');
+    $(this).find('.tab-pane.active .ueditor').each(function (index, ele) {
         var id = $(ele).attr('id');
-        window.myUEditor = UE.getEditor(id);
+        if (UE[scope]) {
+            UE[scope].destroy();
+        }
+        UE[scope] = UE.getEditor(id);
     })
   }
+  //init spinner
+  $(".user-spinner")
+      .spinner('delay', 2000) //delay in ms
+      .spinner('changed', function(e, newVal, oldVal){
+        //trigger lazed, depend on delay option.
+        console.log(newVal, oldVal);
+      })
+      .spinner('changing', function(e, newVal, oldVal){
+        // alert('aaa');
+        //trigger immediately
+      });
 });
 
+//表单提交后
 function form_commit () {
-    $("#wizard-form-submit").click(function () {
-        var data = $("#basic-wizard-form").serialize();
+    $("#mask #wizard-form-submit").click(function () {
+        var data = $("#mask #basic-wizard-form").serialize();
         $.ajax({
             type : 'post',
             data : data,
             url : $("#basic-wizard-form").attr('action'),
-            success : function (response) {
-                console.log(response);
-            }
+            success : form_commit_success_callback,
         })
     })
 };
+
+//表单提交
+function submit_form (_this) {
+    var data = $(_this).parents('form').serialize();
+    $.ajax({
+        type : 'post',
+        data : data,
+        url : $("#basic-wizard-form").attr('action'),
+        success : form_commit_success_callback,
+    })
+};
+
+function form_commit_success_callback (response) {
+    var url = $("#sidebar .active").attr('href');
+    var response = $.parseJSON(response);
+    page(url, function () {
+        set_tip_left(response);
+    });
+    $('#mask').modal('hide');
+    // set_tip_left();
+    
+}
+
+function set_tip_left (response) {
+    $("#user-tip").fadeIn().find('div').hide();
+    $("#user-tip").find('.' + response.state).html(response.msg).show();
+    var l = ($(document).width() - $("#user-tip").outerWidth()) / 2;
+    $("#user-tip").css({left : l});
+    setTimeout(function () {
+        $("#user-tip").fadeOut();
+    }, 1500);
+}
+
+//数据分页刷新函数
+function page (url, fn) {
+    var data_tab = $("#user-tabs .active").find('a').attr('href').substr(1);
+    var text = $("#user-tabs .active").text();
+    if (!hide_home_view) {
+        hide_home_view = true;
+        $('#home-view').hide();
+        $("#user-nav-top").show();
+    }
+    var t = $("#sidebar .active")[0];
+    tab(t);
+    setTimeout(function () {
+        var nav_dom = $("#user-tabs a:contains(" + text + ")");
+        refresh(nav_dom, url, data_tab, null, fn);
+    },0);
+    resetLeftNavActive(t);
+    if (clearNav(text)) {
+        createTabNav(text, data_tab);
+    }
+}
+
+//返回按钮
+function go_back () {
+    var url = $("#sidebar .active").attr('href');
+    page(url);
+}

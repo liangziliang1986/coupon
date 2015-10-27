@@ -2,7 +2,7 @@
 return array(
 	//'配置项'=>'配置值'
     // URL访问模式,可选参数0、1、2、3,代表以下四种模式：
-    'URL_MODEL'             =>  0,
+    'URL_MODEL'             =>  1,
 
     //设置模板
     'LAYOUT_ON'=>true,
@@ -39,5 +39,6 @@ return array(
     //增加自定义函数文件
     'LOAD_EXT_FILE' => 'replace,public',
 
-    
+     //增加自定义的config文件
+    'LOAD_EXT_CONFIG' => 'db',
 );

@@ -1,0 +1,43 @@
+<div class="alert alert-warning alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+  <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+</div>
+<div class="block traffic">
+    <div class="block-section">
+        <h4 class="sub-header">车站列表<a href="/manage/page/add_station" class="btn btn-default right ajaxLink"><i class="gi gi-plus"></i> 新建车站(弹窗)</a><a href="/manage/page/add_station2" class="btn btn-default right ajaxFetch"><i class="gi gi-plus"></i> 新建车站(页面)</a></h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>车站名称</th>
+              <th>英文名</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <foreach name="stations" item="single">
+              <tr>
+                <th scope="row">{$single.id}</th>
+                <td>{$single.zh_name}</td>
+                <td>{$single.en_name}</td>
+                <td>
+                  <a href="/Manage/Page/add_station/id/{$single['id']}" class="ajaxLink" title="">修改</a>
+                  <a href="/Manage/Page/delete_station/id/{$single.id}" class="ajaxDelete" title="">删除</a>
+                </td>
+              </tr>
+            </foreach>
+          </tbody>
+        </table>
+        <div class="text-right">
+          {:W('Page/page')}
+          <!-- <ul class="pagination pagination-sm">
+              <li class="disabled"><a class="getPage" href="/manage/traffic/station/page/2"><i class="fa fa-angle-left"></i></a></li>
+              <li class="active"><a onclick="return getPage(this);" href="javascript:void(0)">1</a></li>
+              <li><a href="javascript:void(0)">2</a></li>
+              <li><a href="javascript:void(0)">3</a></li>
+              <li><a href="javascript:void(0)">4</a></li>
+              <li><a href="javascript:void(0)"><i class="fa fa-angle-right"></i></a></li>
+          </ul> -->
+        </div>
+    </div>
+</div>
