@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="col-md-4 control-label" for="masked_phone">{$label_name}</label>
+    <div class="col-md-6">
+        <input type="text" id="{$id}" name="{$name}" value="{$value}" class="form-control" placeholder="{$place_holder}">
+    </div>
+</div>
+<script type="text/javascript">
+     $("#{$id}").mask("(99999)99999999");
+</script>

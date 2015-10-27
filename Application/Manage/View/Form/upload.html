@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label class="col-md-4 control-label" for="{$id}">{$label_name}</label>
+    <div class="col-md-6">
+    <div id="{$queue_id}"></div>
+        <input class="file_upload" id="{$id}" queueID='{$queue_id}' name="{$name}" type="file" multiple="true">
+        <a style="position: relative; top: 8px; margin-left:20px;" href="javascript:$('#{$id}').uploadifive('upload')">确定上传</a>
+    </div>
+</div>

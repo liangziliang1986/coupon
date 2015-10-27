@@ -98,4 +98,32 @@
             $this->help_block = $help_block;
             $this->display('Form/ueditor');
         }
+
+        public function timer ($id, $name, $label_name, $value) {
+            $this->id = $id;
+            $this->name = $name;
+            $this->value = $value;
+            $this->label_name = $label_name;
+            $this->help_block = $help_block;
+            $this->display('Form/timer');
+        }
+
+        public function phone ($id, $name, $label_name, $value, $place_holder) {
+            $this->id = $id;
+            $this->name = $name;
+            $this->value = $value;
+            $this->label_name = $label_name;
+            $this->place_holder = $place_holder;
+            $this->help_block = $help_block;
+            $this->display('Form/phone');
+        }
+
+        public function upload ($id, $name, $label_name, $value, $queue_id) {
+            $this->id = $id;
+            $this->name = $name;
+            $this->value = $value;
+            $this->label_name = $label_name;
+            $this->queue_id = $queue_id;
+            $this->display('Form/upload');
+        }
     }

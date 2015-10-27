@@ -292,9 +292,9 @@ function showMask () {
 
 //获取页面后初始化插件
 $("#user-tab-content").bind("initUploadifive", function (event) {
-  if ($(this).find('.file_upload').length) {
+  if ($(this).find('.tab-pane.active .file_upload').length) {
     //init uploadify 
-    $(this).find('.file_upload').each(function (index, ele) {
+    $(this).find('.tab-pane.active .file_upload').each(function (index, ele) {
         var queueID = $(ele).attr('queueID');
         $(ele).uploadifive({
             'auto'             : false,
@@ -305,20 +305,22 @@ $("#user-tab-content").bind("initUploadifive", function (event) {
             'buttonText'       : '选择上传文件',
             'queueID'          : queueID,
             'uploadScript'     : '/Application/Manage/Resource/uploadifive.php',
-            'onUploadComplete' : function(file, data) { console.log(data); }
+            'onUploadComplete' : function(file, data) { 
+                console.log(file, data);
+            }
         });
     });
   };
-  //alert('init');
   //init ueditor
   if ($(this).find('.tab-pane.active .ueditor').length) {
     var scope = $("#sidebar .active").attr('data-tab');
     $(this).find('.tab-pane.active .ueditor').each(function (index, ele) {
         var id = $(ele).attr('id');
-        if (UE[scope]) {
-            UE[scope].destroy();
+        if (window['myUEditor' + scope]) {
+            // console.log(window['myUEditor' + scope] == window['myUEditor' + 'shop']);
+            window['myUEditor' + scope].destroy();
         }
-        UE[scope] = UE.getEditor(id);
+        window['myUEditor' + scope] = UE.getEditor(id);
     })
   }
   //init spinner

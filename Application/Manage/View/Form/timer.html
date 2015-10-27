@@ -1,0 +1,14 @@
+<div class="form-group">
+    <label class="col-md-4 control-label" for="example-timepicker24">{$label_name}</label>
+    <div class="col-md-4">
+        <div class="input-group bootstrap-timepicker">
+            <input type="text" id="{$id}" name="{$name}" value="{$value}" class="form-control input-timepicker24">
+            <span class="input-group-btn">
+                <a href="javascript:void(0)" class="btn btn-primary"><i class="fa fa-clock-o"></i></a>
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#{$id}').timepicker({showMeridian : false, maxHours : 24, showSeconds : true, minuteStep : 1, secondStep : 15});
+</script>

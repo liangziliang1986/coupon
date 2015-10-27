@@ -1,15 +1,13 @@
-<style type="text/css" media="screen">
-    .uploadifive-button{
-        left: 225px;
-    }
-</style>
-<div class="block">
+<div class="block user-full-form">
     <div class="block-section">
         <h4 class="sub-header">表单全部组件展示</h4>
         <div class="row">
             <form id="basic-wizard" action="page_forms_wizard.php" method="post" class="form-horizontal form-bordered ui-formwizard">
                 {:W('Form/Input', array('road_num', 'road_num', '输入框', $road_num, '这是一个输入框'))}
                 {:W('Form/check_box_list', array($list, '多选框'))}
+                {:W('Form/upload', array('pic3', 'pic3', '预览图3',  $pic3, 'qid3'))}
+                {:W('Form/phone', array('phone', 'phone', '电话号码', $phone, '请填写电话号码'))}
+                {:W('Form/timer', array('begin_time', 'begin_time', '开始时间(24h)', $begin_time))}
                 <div class="form-group">
                     <label class="col-md-4 control-label">隐藏框</label>
                     {:W('Form/hidden_input', array('station_sort', 'station_sort', ''))}
