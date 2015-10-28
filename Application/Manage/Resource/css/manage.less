@@ -49,6 +49,13 @@ body{
             margin-left:10px;
         }
     }
+    #sort_station_list{
+        .checkbox-inline{
+            .gi{
+                font-size: 8px; position: relative; top: -8px; 
+            }
+        }
+    }
 }
 #user-tip{
     position:absolute;display:none;top:50px;
@@ -56,14 +63,19 @@ body{
         display:none;padding:10px 20px;font-size:18px;
     }
 }
-
+#basic-wizard-form{
+    .chosen-results{
+        .selected{
+            color:whitesmoke;
+        }
+    }
+}
 .switch{
     .selectable
 }
 .selectable{
     -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
 }
-
 //spinner插件
 .spinner.input-group .input-group-addon a.spin-up, .spinner.input-group .input-group-addon a.spin-down{
     height: 10px; width: 10px; font-size: 14px; overflow: hidden; display: block; text-align: center; text-decoration: none; position: relative; color: #999; 
@@ -107,4 +119,15 @@ body{
 }
 .uploadifive-button{
     float:left;
+}
+.col-md-6{
+    .preview-img{
+        width:220px;height:220px;border:1px solid #ccc;margin-bottom: 20px;padding:10px;
+    }
+    .user-queue-id{
+        display:none;
+    }
+    .user-upload-percent{
+        margin:0;font-size:25px;
+    }
 }

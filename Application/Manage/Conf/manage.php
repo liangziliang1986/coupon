@@ -32,6 +32,20 @@
                            '<a href="javascript:void(0)" data-toggle="tooltip" title="Create the most amazing pages with the widget kit!"><i class="gi gi-lightbulb"></i></a>',
                 'url'   => 'header',
             ),
+
+            array(
+                'name'  => '子商户管理',
+                'icon'  => 'gi gi-shopping_cart',
+                'sub'   => array(
+                    array(
+                        'name'  => '资料审核',
+                        'en_name'  => '资料审核',
+                        'url'   => '/manage/merchant/verify',
+                        'class'  => 'ajaxLink',
+                    ),
+                )
+            ),
+
             array(
                 'name'  => '表单组件',
                 'en_name'  => 'form',

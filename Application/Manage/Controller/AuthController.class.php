@@ -71,111 +71,7 @@ class AuthController extends Controller {
         S('authorizer_access_token',$json['authorization_info']['authorizer_access_token'],$json['authorization_info']['expires_in']);
         return S('authorizer_access_token');
         //获取到威信特公众号的信息，按照道理authorizer_access_token是会过期的,而authorizer_refresh_token不会过期,所以应该把authorizer_access_token存入缓存,而authorizer_refresh_token存入数据库即可
-        /*Array
-(
-    [authorization_info] => Array
-        (
-            [authorizer_appid] => wx81545a79d30778f1
-            [authorizer_access_token] => ljTkxGTjDVnPJxB2ARqtVnDMgUoTCAqjd8xDs4TRxdsxmCnD6FiLZwiBBD3ERCZvhJCRU2hW2EnXeZm5_eqR2hhmAPSFiM7stXD_a3CsYicywNRpYFTsgTY4mQCmyNQP
-            [expires_in] => 7200
-            [authorizer_refresh_token] => refreshtoken@@@HiwdXe2VH794Zo-zHlML-KfpitL0qEq7T5t44ESKYeo
-            [func_info] => Array
-                (
-                    [0] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 1
-                                )
-                        )
-                    [1] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 2
-                                )
-                        )
-                    [2] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 3
-                                )
-                        )
-                    [3] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 4
-                                )
-                        )
-                    [4] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 5
-                                )
-                        )
-                    [5] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 6
-                                )
-                        )
-                    [6] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 7
-                                )
-                        )
-                    [7] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 8
-                                )
-
-                            [confirm_info] => Array
-                                (
-                                    [need_confirm] => 1
-                                    [already_confirm] => 0
-                                    [can_confirm] => 1
-                                )
-                        )
-                    [8] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 11
-                                )
-                        )
-                    [9] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 12
-                                )
-                        )
-                    [10] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 13
-                                )
-                        )
-                    [11] => Array
-                        (
-                            [funcscope_category] => Array
-                                (
-                                    [id] => 10
-                                )
-                        )
-                )
-        )
-)
-*/
+        
     }
 
 
@@ -298,7 +194,7 @@ class AuthController extends Controller {
     public function get_pre_auth_code () {
     	if(!S('pre_auth_code'))
     	{
-	        $component_access_token = S('component_access_token');
+	        $component_access_token = S('component_access_token')?S('component_access_token'):$this->get_component_access_token();
 	        $url = 'https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=' . $component_access_token;
 	        $param = array(
 	            "component_appid" => 'wx4b0fb3d2064af390',
@@ -473,6 +369,18 @@ class AuthController extends Controller {
         return $json;
     	// var_dump($json);die;
     	// array(1) { ["result"]=> string(11) "RESULT_PASS" }
+    }
+
+
+    //卡券开放类目查询接口
+    public function checkprimary_category_id () {
+        
+        $component_access_token = $this->get_component_access_token();
+        $url = 'https://api.weixin.qq.com/card/getapplyprotocol?access_token=' . $component_access_token;
+        $result = http_get($url);
+        $json = json_decode($result,true);
+        return $json;
+        // array(1) { ["result"]=> string(11) "RESULT_PASS" }
     }
 
 

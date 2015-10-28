@@ -292,12 +292,14 @@ function showMask () {
 
 //获取页面后初始化插件
 $("#user-tab-content").bind("initUploadifive", function (event) {
+  //init uploadify 
   if ($(this).find('.tab-pane.active .file_upload').length) {
-    //init uploadify 
     $(this).find('.tab-pane.active .file_upload').each(function (index, ele) {
         var queueID = $(ele).attr('queueID');
+        var $file_name_div = $(this).parents('.col-md-6').find('.user-file-name');
         $(ele).uploadifive({
             'auto'             : false,
+            'multi'            : false,
             'formData'         : {
                                    'timestamp' : timestamp,
                                    'token'     : token,
@@ -305,8 +307,22 @@ $("#user-tab-content").bind("initUploadifive", function (event) {
             'buttonText'       : '选择上传文件',
             'queueID'          : queueID,
             'uploadScript'     : '/Application/Manage/Resource/uploadifive.php',
+            'onAddQueueItem' : function(file) {
+                $file_name_div.prev().hide();
+                $file_name_div.html(file.name).show();
+            },
+            'onProgress'   : function(file, e) {
+                /*if (e.lengthComputable) {
+                    var percent = Math.round((e.loaded / e.total) * 100);
+                }*/
+                var percent = Math.round((e.loaded / e.total) * 100);
+                var str = '<p class="user-upload-percent">已上传：' + percent + '%</p>';
+                $file_name_div.html(str);
+            },
             'onUploadComplete' : function(file, data) { 
                 console.log(file, data);
+                $file_name_div.hide();
+                $(".preview-img img").attr('src', data).show();
             }
         });
     });

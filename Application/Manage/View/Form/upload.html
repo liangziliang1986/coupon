@@ -1,7 +1,13 @@
 <div class="form-group">
     <label class="col-md-4 control-label" for="{$id}">{$label_name}</label>
     <div class="col-md-6">
-    <div id="{$queue_id}"></div>
+        <div class="preview-img" style="display:-webkit-box;-webkit-box-align: center;
+        -webkit-box-pack: center;">
+            <!-- <img src="__IMG__/default.gif" width="210" alt=""> -->
+            <img src="__IMG__/default.gif" alt="" style="max-width:200px;max-height:200px;">
+            <div class="user-file-name" style="max-width:200px;max-height:200px;"></div>
+        </div>
+        <div class="user-queue-id" id="{$queue_id}"></div>
         <input class="file_upload" id="{$id}" queueID='{$queue_id}' name="{$name}" type="file" multiple="true">
         <a style="position: relative; top: 8px; margin-left:20px;" href="javascript:$('#{$id}').uploadifive('upload')">确定上传</a>
     </div>

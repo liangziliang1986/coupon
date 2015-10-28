@@ -18,28 +18,30 @@ $fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // Allowed file extensions
 $verifyToken = md5('unique_salt' . $_POST['timestamp']);
 writeArray(null, $_POST);
 if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
-	$tempFile   = $_FILES['Filedata']['tmp_name'];
-	$year = date('Y'); $day = date('md');
-    $relative_path = "/{$year}/{$day}/";
-	$uploadDir  = $_SERVER['DOCUMENT_ROOT'] . $uploadDir . $relative_path;
-	recursiveMkdir($uploadDir);
-	$targetFile = $uploadDir . $_FILES['Filedata']['name'];
+    $tempFile   = $_FILES['Filedata']['tmp_name'];
+    $year = date('Y'); $day = date('md');
+    $relative_path = "{$year}/{$day}/";
+    $uploadD  = $_SERVER['DOCUMENT_ROOT'] . $uploadDir . $relative_path;
+    recursiveMkdir($uploadD);
+    $file_extension =  pathinfo($_FILES['Filedata']['name'], PATHINFO_EXTENSION);
+    $f_name = md5($_FILES['Filedata']['name'] . time()) . ".$file_extension";
+    $targetFile = $uploadD . $f_name;
 
-	// Validate the filetype
-	$fileParts = pathinfo($_FILES['Filedata']['name']);
-	if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
+    // Validate the filetype
+    $fileParts = pathinfo($_FILES['Filedata']['name']);
+    if (in_array(strtolower($fileParts['extension']), $fileTypes)) {
 
-		// Save the file
-		move_uploaded_file($tempFile, iconv("UTF-8","gb2312", $targetFile));
+        // Save the file
+        move_uploaded_file($tempFile, iconv("UTF-8","gb2312", $targetFile));
 
-		echo 1;
+        echo $uploadDir . $relative_path . $f_name;
 
-	} else {
+    } else {
 
-		// The file type wasn't allowed
-		echo 'Invalid file type.';
+        // The file type wasn't allowed
+        echo 'Invalid file type.';
 
-	}
+    }
 }
 function recursiveMkdir($path) {
   if (!file_exists($path)) {
