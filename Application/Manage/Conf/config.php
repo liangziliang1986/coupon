@@ -8,6 +8,6 @@ return array(
         '__PROUI__'      => '/Application/Manage/Resource/Proui',
         '__IMG__'        => '/Application/Manage/Resource/img',
     ),
-    //增加自定义的config文件
+    //增加自定义的config文件 
     'LOAD_EXT_CONFIG' => 'manage',
 );
