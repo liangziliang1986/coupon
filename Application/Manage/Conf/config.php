@@ -10,4 +10,5 @@ return array(
     ),
     //增加自定义的config文件 
     'LOAD_EXT_CONFIG' => 'manage',
+    'URL_MODEL ' => 2,
 );

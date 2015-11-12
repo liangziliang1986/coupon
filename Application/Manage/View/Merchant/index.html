@@ -1,0 +1,65 @@
+<div class="block traffic">
+    <div class="block-section">
+        <h4 class="sub-header">商户列表<a style="margin-left:10px;margin-right:10px;" href="/Manage/Merchant/index/noauth/1" class="btn btn-info right ajaxFetch"><i class="fa fa-minus-circle fa-fw"></i>未授权</a><a style="margin-left:10px;margin-right:10px;" href="/Manage/Merchant/index/nopass/1" class="btn btn-primary right ajaxFetch"><i class="fa fa-ellipsis-h fa-fw"></i>审核中</a><a style="margin-left:10px;margin-right:10px;" href="/Manage/Merchant/index" class="btn btn-warning right ajaxFetch"><i class="fa fa-refresh fa-fw"></i>全部</a></h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>商户名称</th>
+              <th>商家logo</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <foreach name="merchant" item="single">
+              <tr>
+                <th scope="row">{$single.id}</th>
+                <td>{$single.name}</td>
+                <td><img style="max-height:50px;max-width:50px;" src="{$single.logo}"></td>
+                <td>
+                	<if condition="$single.status eq 0">审核中...&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<elseif condition="$single.status eq 1"/>已通过&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<elseif condition="$single.status eq 2"/><span style="color:red;">驳回原因:{$single.rejectreason}</span>&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<else />无提审记录&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+					</if>
+                </td>
+                <td>
+					<if condition="($single.status eq 2) OR ($single.status eq 3)">
+						<a href="/Manage/Merchant/edit/id/{$single.id}" class="ajaxFetch" title="">修改</a>
+                  		<a href="/Manage/Merchant/deleteShop/id/{$single.id}" class="ajaxDelete" title="">删除</a>
+                  		<if condition="$single.uid == 0" >
+              				<a href="javascript:;" onclick="return createAccount({$single.id})" title="">生成账户密码</a>
+              		    </if>
+                  	<else/>
+                  		<if condition="$single.uid == 0" >
+              				<a href="javascript:;" onclick="return createAccount({$single.id})" title="">生成账户密码</a>
+              			<else/>
+              				无
+              			</if>
+					</if>
+              		
+                  
+                </td>
+              </tr>
+            </foreach>
+          </tbody>
+        </table>
+        <div class="text-right">
+          {:W('Page/page')}
+          
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	function createAccount (id) {
+		$.ajax({
+			type : 'post',
+			data : {id:id},
+			url : '/Manage/Merchant/createAccount',
+			success : function (data) {
+				alert(data.content);
+			}
+		});
+	};
+</script>

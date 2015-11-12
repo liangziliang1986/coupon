@@ -8,7 +8,7 @@
         public function input($id, $name, $label_name, $value, $place_holder, $help_block){
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->input_value = $value;
             $this->label_name = $label_name;
             $this->place_holder = $place_holder;
             $this->help_block = $help_block;
@@ -26,7 +26,7 @@
             $this->id = $id;
             $this->name = $name;
             $this->label_name = $label_name;
-            $this->value = $value;
+            $this->checkbox_value = $value;
             $this->help_block = $help_block;
             $this->display('Form/checkbox');
         }
@@ -39,7 +39,7 @@
         public function hidden_input ($id, $name, $value) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->hidden_input_value = $value;
             $this->display('Form/hidden_input');
         }
 
@@ -74,7 +74,7 @@
         public function textarea ($id, $name, $label_name, $value, $place_holder, $help_block) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->textarea_value = $value;
             $this->label_name = $label_name;
             $this->place_holder = $place_holder;
             $this->help_block = $help_block;
@@ -84,7 +84,7 @@
         public function spinner ($id, $name, $label_name, $value, $help_block) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->spinner_value = $value;
             $this->label_name = $label_name;
             $this->help_block = $help_block;
             $this->display('Form/spinner');
@@ -93,7 +93,7 @@
         public function ueditor ($id, $name, $label_name, $value, $help_block) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->ueditor_value = $value;
             $this->label_name = $label_name;
             $this->help_block = $help_block;
             $this->display('Form/ueditor');
@@ -102,7 +102,7 @@
         public function timer ($id, $name, $label_name, $value) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->timer_value = $value;
             $this->label_name = $label_name;
             $this->help_block = $help_block;
             $this->display('Form/timer');
@@ -111,19 +111,21 @@
         public function phone ($id, $name, $label_name, $value, $place_holder) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->phone_value = $value;
             $this->label_name = $label_name;
             $this->place_holder = $place_holder;
             $this->help_block = $help_block;
             $this->display('Form/phone');
         }
 
-        public function upload ($id, $name, $label_name, $value, $queue_id) {
+        public function upload ($id, $name, $label_name, $value, $queue_id, $is_weixin, $help_block) {
             $this->id = $id;
             $this->name = $name;
-            $this->value = $value;
+            $this->upload_value = $value;
             $this->label_name = $label_name;
             $this->queue_id = $queue_id;
+            $this->is_weixin = $is_weixin;
+            $this->help_block = $help_block;
             $this->display('Form/upload');
         }
     }

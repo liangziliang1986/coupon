@@ -1,0 +1,106 @@
+<div class="block traffic">
+    <div class="block-section">
+        <h4 class="sub-header">卡券信息<if condition="$id" >
+          <button type="button" class="btn btn-default right" data-dismiss="modal" onclick="go_back();">返回</button>
+        </if></h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>商家</th>
+              <th>卡券类型</th>
+              <th>卡券标题</th>
+              <th>审核状态</th>
+              <th>失效时间</th>
+              <th>总数量</th>
+              <th>已领取</th>
+              <th>已使用</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <foreach name="coupon" item="single">
+
+              <tr>
+                <th scope="row">{$single.id}</th>
+                <td>{$single.brand_name}</td>
+                <td>
+                  <if condition="$single.card_type eq DISCOUNT" >
+                    折扣券
+                  <elseif condition="$single.card_type eq GROUPON"/>
+                    团购券
+                  <elseif condition="$single.card_type eq CASH"/>
+                    代金券
+                  <elseif condition="$single.card_type eq GIFT"/>
+                    礼品券
+                  <else/>
+                    优惠券
+                  </if>
+                </td>
+                <td>
+                  {$single.title}
+                </td>
+                <td>
+                  <if condition="$single.status eq 0" >
+                    待审核
+                  <elseif condition="$single.status eq 1"/>
+                    <span style="color:red;">审核失败</span>
+                  <elseif condition="$single.status eq 2"/>
+                    通过审核
+                  <elseif condition="$single.status eq 3"/>
+                    卡券被商户删除
+                  <else/>
+                    在公众平台投放过的卡券
+                  </if>
+                </td>
+                <td>
+                  <if condition="$single.type eq DATE_TYPE_FIX_TERM" >
+                    领取后{$single.fixed_term}天
+                  <else/>
+                    {$single.end_timestamp|date="m月d日",###}
+                  </if>
+                </td>
+                <td>{$single.quantity}</td>
+                <td>
+                    {$single.collected}
+                  <if condition="$single['collected']" >
+                    <a href="/Manage/Coupon/codeDetails/card_id/{$single.card_id}/title/{$single.title}" class="ajaxFetch" >详情</a>
+                  </if>
+                </td>
+                <td>
+                    {$single.consumed}
+                  <if condition="$single['consumed']" >
+                    <a href="/Manage/Coupon/codeDetails/card_id/{$single.card_id}/title/{$single.title}/consumed/1" class="ajaxFetch" >详情</a>
+                  </if>
+                </td>
+                <td>
+                  <if condition="!$single['ticket']" >
+                    <a href="javascript:;" title="" onclick="return dispatchQRCode({$single.id});">投放</a>
+                  <else/>
+                    <a href="https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={$single.ticket}" target="_blank" title="">查看二维码</a>
+                    <a href="/Manage/Coupon/deleteCoupon/id/{$single.id}" class="ajaxDelete" title="">删除</a>
+                  </if>
+                </td>
+              </tr>
+              </foreach>
+          </tbody>
+        </table>
+        <div class="text-right">
+
+          {:W('Page/page')}
+          
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+  function dispatchQRCode (id) {
+    $.ajax({
+      type : 'post',
+      data : {id:id},
+      url : '/Manage/Coupon/dispatchQRCode',
+      success : function (data) {
+        alert(data.content);
+      }
+    });
+  };
+</script>

@@ -1,0 +1,55 @@
+
+<div class="block traffic user-full-form">
+    <div class="block-section">
+        <h4 class="sub-header" style="margin-bottom:20px;font-weight: bolder;">
+        修改账户信息
+        </h4>
+            <form id="shanghu_basic-wizard" target="parent"  action="" method="post" class="form-horizontal form-bordered ui-formwizard" enctype="multipart/form-data">
+                {:W('Form/upload', array('shanghu_pic1', 'header_img', '用户头像', $user['header_img'], 'qid1'))}
+                {:W('Form/hidden_input', array('shanghu_img', 'hide_header_img', $user['header_img']))}
+
+                {:W('Form/Input', array('', 'username', '登录名称', $user['username'], '登录名称'))}
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">旧密码</label>
+                    <div class="col-md-6">
+                        <input type="password" id="" name="old_password" value="" class="form-control ui-wizard-content" placeholder="旧密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">新密码</label>
+                    <div class="col-md-6">
+                        <input type="password" id="" name="new_password" value="" class="form-control ui-wizard-content" placeholder="新密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="">确认新密码</label>
+                    <div class="col-md-6">
+                        <input type="password" id="" name="confirm_password" value="" class="form-control ui-wizard-content" placeholder="再次输入新密码">
+                    </div>
+                </div>
+                {:W('Form/Input', array('', 'email', 'Email地址', $user['email'], 'Email地址'))}
+                <div class="modal-footer" style="background:white;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go_back();">返回</button>
+                    <button type="button" class="btn btn-primary submit" onclick="shanght_submit_form(this);">确定</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function shanght_submit_form () {
+        var url = "?m=Manage&c=Merchant&a=editMerchant";
+        $.ajax({
+            type : 'post',
+            data : $("#shanghu_basic-wizard").serialize(),
+            url : url,
+            success : function (data) {
+                alert(data.content);
+                if(data.status == 0)
+                {
+                    go_back();
+                }
+            }
+        });
+    };
+</script>

@@ -16,7 +16,7 @@ $uploadDir = '/Uploads/';
 $fileTypes = array('jpg', 'jpeg', 'gif', 'png'); // Allowed file extensions
 
 $verifyToken = md5('unique_salt' . $_POST['timestamp']);
-writeArray(null, $_POST);
+// writeArray(null, $_POST);
 if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
     $tempFile   = $_FILES['Filedata']['tmp_name'];
     $year = date('Y'); $day = date('md');

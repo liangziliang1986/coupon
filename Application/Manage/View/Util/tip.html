@@ -1,0 +1,24 @@
+<div id="user-tip" style="position: absolute;top:25px; margin-left:50%;">
+    <div class="success alert-success" style="display:none;padding:15px 20px;"></div>
+    <div class="error alert-danger" style="display:none;padding:15px 20px;"></div>
+</div>
+<script type="text/javascript">
+    
+    var error = "{:cookie('error')}";
+    var success = "{:cookie('success')}";
+    if (error !== '') {
+        $("#user-tip .error").html(error).fadeIn(1000);
+        var width = $("#user-tip").outerWidth();
+        $("#user-tip").css({left : -width/2});
+        setTimeout(function () {
+            $("#user-tip .error").fadeOut(1000);
+        }, 2000);
+        "{:cookie('error', null)}"
+    } else if (success !== '') {
+        $("#user-tip .success").html(success).fadeIn(1000);
+        setTimeout(function () {
+            $("#user-tip .success").fadeOut(1000);
+        }, 2000);
+        "{:cookie('success', null)}"
+    }
+</script>

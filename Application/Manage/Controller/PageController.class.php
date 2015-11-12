@@ -25,10 +25,10 @@ class PageController extends BaseController {
         //每页条数
         $page_list = 10;
         //总条数
-        $count = M('Station')->count();
+        /*$count = M('Station')->count();
         //页数
         $this->page_num = ceil($count / $page_list);
-        $this->stations = M('Station')->page($this->page, $page_list)->order('create_time desc')->select();
+        $this->stations = M('Station')->page($this->page, $page_list)->order('create_time desc')->select();*/
         $this->ajax_display('index');
     }
 

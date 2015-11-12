@@ -1,0 +1,44 @@
+<!-- Login Background -->
+<div id="login-background">
+    <!-- For best results use an image with a resolution of 2560x400 pixels (prefer a blurred image for smaller file size) -->
+    <img src="__IMG__/lock_header.jpg" alt="Lock Background" class="animation-pulseSlow">
+</div>
+<!-- END Login Background -->
+
+<!-- Login Container -->
+<div id="login-container" class="animation-slideDown">
+    <!-- Login Title -->
+    <div class="login-title text-right">
+        <h1>
+            <if condition="$user['header_img']" >
+                <img src="$user['header_img']" alt="avatar" class="img-circle pull-left"><br>
+            </if>
+            <i class="fa fa-user pull-left" style="font-size: 55px;margin-top: -12px;margin-left: 14px;"></i>
+            <span style="margin-right:14px;">{$user['username']}</span>
+        </h1>
+    </div>
+    <!-- END Login Title -->
+
+    <!-- Login Block -->
+    <div class="block">
+        <form action="/manage/login/do_login" method="post" class="form-horizontal push">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <input type="password" id="login-password" name="login-password" class="form-control" placeholder="请输入密码">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-unlock-alt"></i> 解锁</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" value="1" name="lock">
+        </form>
+        <p class="text-center">
+            <a href="/manage/login"><small>如果你不是{$user['username']}，请先登录</small></a>
+        </p>
+    </div>
+    <!-- END Login Block -->
+</div>
+{:W('Util/tip')}
+<!-- END Login Container -->

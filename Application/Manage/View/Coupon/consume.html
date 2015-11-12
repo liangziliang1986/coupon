@@ -1,0 +1,40 @@
+<div class="block traffic">
+    <div class="block-section">
+        <div class="block traffic user-full-form">
+    <div class="block-section">
+        <h4 class="sub-header" style="margin-bottom:20px;font-weight: bolder;">
+        请输入卡券号码
+        </h4>
+            <form id="hexiao_basic-wizard" action="" method="post" class="form-horizontal form-bordered ui-formwizard" enctype="multipart/form-data">
+
+                {:W('Form/Textarea', array('hexiao_code', 'code', '卡券号', '', '多张卡券号以换行隔开'))}
+                <div class="modal-footer" style="background:white;">
+                    <button type="button" class="btn btn-primary hexiao_submit" onclick="submit_form(this);">确定</button>
+                </div>
+            </form>
+    </div>
+</div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+  function submit_form () {
+      var url = "?m=Manage&c=Coupon&a=AjaxConsume";
+      $.ajax({
+        type : 'post',
+        data : $("#hexiao_basic-wizard").serialize(),
+        url : url,
+        success : function (data) {
+          if(data.status == 0)
+          {
+            alert('核销成功！')
+            $("#hexiao_code").val('');
+          }
+          else
+          {
+            alert(data.content);
+          }
+        }
+      });
+    };
+</script>

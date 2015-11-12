@@ -1,0 +1,80 @@
+
+    <!-- Login Background -->
+<div id="login-background">
+    <!-- For best results use an image with a resolution of 2560x400 pixels (prefer a blurred image for smaller file size) -->
+    <img src="__IMG__/login_header.jpg" alt="Login Background" class="animation-pulseSlow">
+</div>
+<!-- END Login Background -->
+
+<!-- Login Container -->
+<div id="login-container" class="animation-fadeIn" style="top:100px;">
+    <!-- Login Title -->
+    <div class="login-title text-center">
+        <h1><i class="gi gi-flash"></i> <strong>{$name}后台管理</strong><br><small>请先<strong>登录</strong>或<strong>注册</strong></small></h1>
+    </div>
+    <!-- END Login Title -->
+
+    <!-- Login Block -->
+    <div class="block remove-margin">
+        <form action="/manage/login/do_register" method="post" id="form-register" class="form-horizontal form-bordered form-control-borderless" onsubmit="return false;">
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-user"></i></span>
+                        <input type="text" id="register-username" name="register-username" class="form-control input-lg" placeholder="用户名">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-envelope"></i></span>
+                        <input type="text" id="register-email" name="register-email" class="form-control input-lg" placeholder="请填写正确邮箱，便于找回密码">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                        <input type="password" id="register-password" name="register-password" class="form-control input-lg" placeholder="请输入密码">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="gi gi-asterisk"></i></span>
+                        <input type="password" id="register-password-verify" name="register-password-verify" class="form-control input-lg" placeholder="请再次输入密码">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-actions">
+                <div class="col-xs-6">
+                    <!-- <a href="#modal-terms" data-toggle="modal" class="register-terms">Terms</a>
+                    <label class="switch switch-primary" data-toggle="tooltip" title="Agree to the terms">
+                        <input type="checkbox" id="register-terms" name="register-terms">
+                        <span></span>
+                    </label> -->
+                </div>
+                <div class="col-xs-6 text-right">
+                    <button onclick="register_submit();" type="submit" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> 确定提交</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <p class="text-center remove-margin"><small>若你已经有账户，请点击</small> <a href="/manage/login" id="link-register"><small>登录</small></a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- END Login Block -->
+</div>
+{:W('Util/tip')}
+<!-- END Login Container -->
+<script type="text/javascript">
+    function register_submit () {
+        $("#form-register")[0].submit();
+    }
+</script>
+

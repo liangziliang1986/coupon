@@ -17,12 +17,12 @@
 <script type="text/javascript">
     function init_page () {
       set_href();
-      $("#user-tab-content li").removeClass('disabled');
-      if ($("#user-tab-content .pagination .active").next().hasClass('next')) {
-          $("#user-tab-content .pagination .active").next().addClass('disabled');
+      $("#user-tab-content .active li").removeClass('disabled');
+      if ($("#user-tab-content .active .pagination .active").next().hasClass('next')) {
+          $("#user-tab-content .active .pagination .active").next().addClass('disabled');
       }
-      if ($("#user-tab-content .pagination .active").prev().hasClass('prev')) {
-          $("#user-tab-content .pagination .active").prev().addClass('disabled');
+      if ($("#user-tab-content .active .pagination .active").prev().hasClass('prev')) {
+          $("#user-tab-content .active .pagination .active").prev().addClass('disabled');
       }
     }
 
@@ -39,12 +39,12 @@
     }
 
     function prevPage () {
-        var url = $("#user-tab-content .pagination .active").prev().find('a').attr('href');
+        var url = $("#user-tab-content .active .pagination .active").prev().find('a').attr('href');
         page(url);
     }
 
     function nextPage () {
-        var url = $("#user-tab-content .pagination .active").next().find('a').attr('href');
+        var url = $("#user-tab-content .active .pagination .active").next().find('a').attr('href');
         page(url);
     }
 

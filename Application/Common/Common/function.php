@@ -653,4 +653,68 @@ function get_hide_email ($email, $length = 3) {
     $len = ceil($l/$length);
     return substr($email_num[0], 0, $len) . '***' . substr($email_num[0], 1 - $len) . $email_num[1];
 }
+
+
+
+
+
+//验证手机
+function is_mobile ($tel) {
+ return preg_match('/^1[0-9][0-9]{1}[0-9]{8}$|15[0189]{1}[0-9]{8}$|189[0-9]{8}$/', $tel);
+}
+
+
+/**
+ * 检查是否是邮箱和检查邮件域所属DNS中的MX记录
+ * @param  [string]  $email   [邮箱地址]
+ * @param  boolean $test_mx [你需要检查邮件域所属DNS中的MX记录，将函数参数$test_mx 设置为true]
+ * @return boolean          [如果是邮件，则返回true]
+ */
+function is_email ($email, $test_mx = false) {
+    if(eregi("^([_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-z0-9-]+)*(\.[a-z]{2,4})$", $email))
+        if($test_mx)
+        {
+            list($username, $domain) = split("@", $email);
+            return getmxrr($domain, $mxrecords);
+        }
+        else
+            return true;
+    else
+        return false;
+}
+
+function cookie_redirect($key = 'error', $value = '对不起，操作失败', $url = null) {
+    cookie($key, $value);
+    if(!$url) {
+        $url = I('server.HTTP_REFERER');
+    }
+    redirect($url);
+}
+
+//获取远程图片并保持到本地
+function download_remote_file_with_fopen($file_url, $save_to)
+    {
+        $in=    fopen($file_url, "rb");
+        $out=   fopen($save_to, "wb");
+ 
+        while ($chunk = fread($in,8192))
+        {
+            fwrite($out, $chunk, 8192);
+        }
+ 
+        fclose($in);
+        fclose($out);
+    }
+
+//查看数组是否为空(二维数组)
+function checkEmptyArray ($data) {
+    if(!is_array($data)) return false;
+    foreach ($data as $k => $v) {
+        if(trim($v))
+        {
+            return true;
+        }
+    }
+    return false;
+}
         

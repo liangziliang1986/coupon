@@ -2,13 +2,20 @@
     <label class="col-md-4 control-label" for="{$id}">{$label_name}</label>
     <div class="col-md-6">
         <div class="preview-img" style="display:-webkit-box;-webkit-box-align: center;
-        -webkit-box-pack: center;">
+        -webkit-box-pack: center;position:relative;">
+            <if condition="$upload_value"><button style="position:absolute;top:3px;right:3px;" type="button" class="close tim_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></if>
+            
             <!-- <img src="__IMG__/default.gif" width="210" alt=""> -->
-            <img src="__IMG__/default.gif" alt="" style="max-width:200px;max-height:200px;">
+            <img src="<if condition="$upload_value">{$upload_value}<else/>__IMG__/default.gif</if>" alt="" style="max-width:200px;max-height:200px;">
             <div class="user-file-name" style="max-width:200px;max-height:200px;"></div>
+            <if condition="$is_weixin" >
+            <input id="{$name}_a" type="hidden" name="{$name}_a" value="" >
+            </if>
+            <input id="{$name}_b" type="hidden" name="{$name}_b" value="{$upload_value}" >
         </div>
         <div class="user-queue-id" id="{$queue_id}"></div>
-        <input class="file_upload" id="{$id}" queueID='{$queue_id}' name="{$name}" type="file" multiple="true">
+        <input class="file_upload {$is_weixin}" id="{$id}" queueID='{$queue_id}' name="{$name}" type="file" multiple="true">
         <a style="position: relative; top: 8px; margin-left:20px;" href="javascript:$('#{$id}').uploadifive('upload')">确定上传</a>
+        <span class="help-block" style='clear:both;padding-top:10px;'>{$help_block}</span>
     </div>
 </div>

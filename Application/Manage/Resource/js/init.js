@@ -32,7 +32,7 @@ function tab (_this) {
 };
 function clearNav (text) {
     $("#user-tabs .active").removeClass('active');
-    $("#user-tab-content .active").removeClass('active');
+    $("#user-tab-content .tab-pane.active").removeClass('active');
     if (checkTabExit(text)) {
         return false;
     } else {
@@ -315,14 +315,51 @@ $("#user-tab-content").bind("initUploadifive", function (event) {
                 /*if (e.lengthComputable) {
                     var percent = Math.round((e.loaded / e.total) * 100);
                 }*/
+                if ($(this).hasClass('weixin_upload')) {
+                    // 判断如果是微信的上传,则由于上传素材可能比较慢,所以需要把提交按钮disabled掉
+                    $(this).parents('form').find('.shenhe_submit').html('图片上传中...');
+                    $(this).parents('form').find('.shenhe_submit').addClass('disabled');
+                    
+                }
                 var percent = Math.round((e.loaded / e.total) * 100);
                 var str = '<p class="user-upload-percent">已上传：' + percent + '%</p>';
                 $file_name_div.html(str);
             },
             'onUploadComplete' : function(file, data) { 
-                console.log(file, data);
+                // console.log(file, data);
                 $file_name_div.hide();
-                $(".preview-img img").attr('src', data).show();
+                $(this).parents('.col-md-6').find(".preview-img img").attr('src', data).show();
+                $(this).parents('.col-md-6').find(".preview-img input[type='hidden']").val(data);
+                // console.log($(this).parents('.col-md-6').find(".preview-img input[type='hidden']"));
+                if ($(this).hasClass('weixin_upload')) {
+                    var _that = $(this);
+                    var url = $(this).attr('data-url') || '?m=Manage&c=Merchant&a=uploadTempImg1';
+                    var id = $(this).attr('data-id');
+                    // 判断如果是微信的上传,则需要调用临时上传图片接口
+                    $.ajax({
+                        type: 'post',
+                        data: {filename : data, id : id},
+                        // url: '?m=Manage&c=Merchant&a=uploadTempImg1',
+                        url: url,
+                        success : function  (data2) {
+                            //把media_id的值赋给隐藏域,以便提交
+                            if(data2.media_id)
+                            {
+                            //如果有media_id,则是提交资质
+                            _that.parents('.col-md-6').find(".preview-img input[type='hidden']").eq(0).val(data2.media_id);
+                            }
+                            if(data2.logo_url)
+                            {
+                            //如果有logo_url,则是提交创券资料
+                            _that.parents('.col-md-6').find(".preview-img input[type='hidden']").eq(0).val(data2.logo_url);
+                            }
+                            //上传微信接口成功,把提交的disabled属性去掉
+                            _that.parents('form').find('.shenhe_submit').html('确定');
+                            _that.parents('form').find('.shenhe_submit').removeClass('disabled');
+
+                        }
+                    })
+                }
             }
         });
     });
@@ -350,6 +387,16 @@ $("#user-tab-content").bind("initUploadifive", function (event) {
         // alert('aaa');
         //trigger immediately
       });
+
+      $('.file_upload').bind('user_upload_fn', function () {
+            var id = $(this).attr('id');
+            if (window[id + '_click']) {
+                window[id + '_click'](this);
+            }
+       });
+
+       $('.file_upload').trigger('user_upload_fn');
+
 });
 
 //表单提交后

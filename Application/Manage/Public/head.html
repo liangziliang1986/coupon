@@ -42,7 +42,7 @@
             <div class="sidebar-content">
                 <!-- Brand -->
                 <a href="index.php" class="sidebar-brand">
-                    <i class="gi gi-flash"></i><strong>Pro</strong>UI
+                    <i class="gi gi-flash"></i><strong>珠海微时代</strong>
                 </a>
                 <!-- END Brand -->
                 <!-- Theme Colors -->
@@ -81,6 +81,9 @@
                 <?php if ($primary_nav) { ?>
                 <!-- Sidebar Navigation -->
                 <ul class="sidebar-nav">
+                    <!-- <li>
+                        <a class="" target="_blank;" data-tab="gambling" href="/manage/auth/index"><i class="gi gi-coins sidebar-nav-icon"></i>发起授权</a>
+                    </li> -->
                     <?php foreach( $primary_nav as $key => $link ) {
                         $link_class = '';
                         $li_active  = '';
@@ -185,10 +188,10 @@
                     </li>
                     <?php } ?>
                     <?php } ?>
+                    
                 </ul>
                 <!-- END Sidebar Navigation -->
                 <?php } ?>
-
             </div>
             <!-- END Sidebar Content -->
         </div>
@@ -374,6 +377,23 @@
                     </a>
                 </li>
                 <!-- END Alternative Sidebar Toggle Button -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                        <if condition="$admin['header_img']" >
+                            <img src="img/placeholders/avatars/avatar2.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+                        <else/>
+                            <i class="fa fa-user" style="font-size: 30px;position: relative;top: 6px;"></i> <i class="fa fa-angle-down"></i>
+                        </if>
+                    </a>
+                    <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                        <li class="dropdown-header text-center">账户操作</li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/manage/login/lock"><i class="fa fa-lock fa-fw pull-right"></i> 锁屏</a>
+                            <a href="/manage/login/logout"><i class="fa fa-ban fa-fw pull-right"></i> 退出</a>
+                        </li>
+                    </ul>
+                </li>
 
                 
             </ul>

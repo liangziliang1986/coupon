@@ -1,0 +1,40 @@
+<div class="block traffic">
+    <div class="block-section">
+        <h4 class="sub-header">商户信息</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>商户名称</th>
+              <th>商家logo</th>
+              <th>已制券</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <foreach name="merchant" item="single">
+
+              <tr>
+                <th scope="row">{$single.id}</th>
+                <td>{$single.name}</td>
+                <td><img style="max-height:50px;max-width:50px;" src="{$single.logo}"></td>
+                <td>
+                <if condition="$single.count neq 0" >
+                	{$single.count}&nbsp;&nbsp;<a href="/Manage/Coupon/index/id/{$single.id}" class="ajaxFetch">查看</a>
+                <else/>
+                  0
+                </if>
+                </td>
+                <td>
+                  <a href="/Manage/Coupon/createCoupon/id/{$single.id}" class="ajaxFetch" title="">制券</a>
+                </td>
+              </tr>
+              </foreach>
+          </tbody>
+        </table>
+        <div class="text-right">
+          {:W('Page/page')}
+          
+        </div>
+    </div>
+</div>

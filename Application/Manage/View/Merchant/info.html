@@ -1,0 +1,42 @@
+<div class="block traffic">
+    <div class="block-section">
+        <h4 class="sub-header">商户信息</h4>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>商户名称</th>
+              <th>商家logo</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <th scope="row">{$single.id}</th>
+                <td>{$single.name}</td>
+                <td><img style="max-height:50px;max-width:50px;" src="{$single.logo}"></td>
+                <td>
+                	<if condition="$single.status eq 0">审核中...&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<elseif condition="$single.status eq 1"/>已通过&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<elseif condition="$single.status eq 2"/>被驳回&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+						<else />无提审记录&nbsp;&nbsp;|&nbsp;&nbsp;<if condition="$single.auth_status eq 0">未授权<else />已授权</if>
+					</if>
+                </td>
+                <td>
+					<!-- <if condition="($single.status eq 2) OR ($single.status eq 3)">
+            <a href="/Manage/Merchant/edit/id/{$single.id}" class="ajaxFetch" title="">修改</a>
+                                <a href="/Manage/Merchant/deleteShop/id/{$single.id}" class="ajaxDelete" title="">删除</a>
+                              <else/>
+                                无
+          </if> -->
+                <a href="/Manage/Merchant/updateInfo" class="ajaxFetch" title="">修改资料</a>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+        <div class="text-right">
+          
+        </div>
+    </div>
+</div>

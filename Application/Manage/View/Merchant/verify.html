@@ -1,0 +1,70 @@
+<div style="font-size:8px;" class="alert alert-warning alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+  <strong>注意:</strong> <p>子商户的商户名，将显示在卡券券面的商户名称,最多支持12个汉字</p><p>当子商户为个体工商户且无公章时，授权函可签字，并额外提交该个体工商户经营者身份证扫描件</p><p>如无营业执照可提供个体工商户执照扫描件替代</p><p>图片大小不超过2M,支持bmp/png/jpeg/jpg/gif格式</p><p>审核时间约为3个工作日,请耐心等候</p>
+</div>
+<div class="block traffic user-full-form">
+    <div class="block-section">
+        <h4 class="sub-header" style="margin-bottom:20px;font-weight: bolder;">
+        添加子商户
+        </h4>
+            <form id="basic-wizard" action="" method="post" class="form-horizontal form-bordered ui-formwizard" enctype="multipart/form-data">
+
+                {:W('Form/single_select', array('shenhe_primary_category_id', 'primary_category_id', $cate1, '一级类目', '选择一级类目'))}
+                {:W('Form/single_select', array('shenhe_secondary_category_id', 'secondary_category_id',$cate2, '二级类目', '选择二级类目'))}
+            	{:W('Form/spinner', array('shenhe_sort', 'sort', '排序', '', '数值越大，越靠前'))}
+                {:W('Form/Input', array('', 'appid', 'appid', '', '子商铺appid'))}
+                {:W('Form/Input', array('', 'name', '名称', '', '子商铺名称,最多支持12个汉字'))}
+                {:W('Form/upload', array('shenhe_pic1', 'logo', '商铺logo(建议100k以内)',  $pic1, 'qid1', 'weixin_upload'))}
+                {:W('Form/upload', array('shenhe_pic2', 'license', '营业执照扫描件',  $pic1, 'qid2', 'weixin_upload'))}
+                {:W('Form/upload', array('shenhe_pic3', 'auth', '授权函',  $pic2, 'qid3', 'weixin_upload'))}
+                {:W('Form/upload', array('shenhe_pic4', 'identity', '身份证扫描件(非必须)',  $pic4, 'qid4', 'weixin_upload'))}
+                <div class="modal-footer" style="background:white;">
+	                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go_back();">返回</button>
+	                <button type="button" class="btn btn-primary shenhe_submit" onclick="submit_form(this);">确定</button>
+	            </div>
+            </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+	
+
+    $("#shenhe_primary_category_id").change(function(ev){
+    	var id = $(ev.target).val();
+        $.ajax({
+			type : 'post',
+			data : {id:id},
+			url : "?m=Manage&c=Merchant&a=ajaxCheckSecondCate",
+			success : function (data) {
+				if(data.status == 0)
+				{
+					$("#shenhe_secondary_category_id").html(data.content);
+					setTimeout(function () {
+						$("#shenhe_secondary_category_id").trigger('chosen:updated');
+					},10);
+				}
+			}
+		})
+    })
+
+    function submit_form () {
+    	var url = "?m=Manage&c=Merchant&a=verifyPost";
+    	$.ajax({
+    		type : 'post',
+    		data : $("#basic-wizard").serialize(),
+    		url : url,
+    		success : function (data) {
+    			if(data.status == 0)
+    			{
+    				alert('提交成功,审核约需3天,请耐心等待！')
+    				go_back();
+    			}
+    			else
+    			{
+    				alert(data.content);
+    			}
+    		}
+    	});
+    };
+
+</script>

@@ -1,0 +1,167 @@
+<div style="font-size:8px;" class="alert alert-warning alert-dismissible fade in" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+  <strong>注意:</strong> <p>上传的卡券logo图片限制文件大小限制1MB，像素为300*300，仅支持JPG、PNG格式</p><p>当子商户为个体工商户且无公章时，授权函可签字，并额外提交该个体工商户经营者身份证扫描件</p><p>如无营业执照可提供个体工商户执照扫描件替代</p><p>图片大小不超过2M,支持bmp/png/jpeg/jpg/gif格式</p><p>审核时间约为3个工作日,请耐心等候</p>
+</div>
+<div class="block traffic user-full-form">
+    <div class="block-section">
+        <h4 class="sub-header" style="margin-bottom:20px;font-weight: bolder;">
+        协助子商户创券
+        </h4>
+            <form id="kaquan_basic-wizard" action="" method="post" class="form-horizontal form-bordered ui-formwizard" enctype="multipart/form-data">
+                {:W('Form/upload', array('kaquan_pic1', 'logo_url', '卡券logo', '', 'qid1', 'weixin_upload'))}
+                {:W('Form/hidden_input', array('kaquan_id', 'id', $id))}
+
+                {:W('Form/single_select', array('kaquan_card_type', 'card_type', $card_type, '卡券类型', '选择卡券类型'))}
+                {:W('Form/Input', array('', 'brand_name', '商户名字', '', '商户名字，字数上限为12个汉字'))}
+                {:W('Form/single_select', array('kaquan_code_type', 'code_type', $code_type, '展示类型', '选择展示类型'))}
+                {:W('Form/Input', array('', 'title', '标题', '', '卡券名，字数上限为9个汉字'))}
+                {:W('Form/Input', array('', 'sub_title', '副标题', '', '券名，字数上限为18个汉字'))}
+                {:W('Form/single_select', array('kaquan_color', 'color', $color, '卡券颜色', '选择卡券颜色'))}
+                {:W('Form/Input', array('', 'notice', '卡券使用提醒', '', '卡券使用提醒，字数上限为16个汉字'))}
+                {:W('Form/Input', array('', 'service_phone', '客服电话', '', '客服电话'))}
+                {:W('Form/Textarea', array('', 'description', '卡券使用说明', '', '卡券使用说明，字数上限为1024个汉字'))}
+                {:W('Form/single_select', array('kaquan_type', 'type', $type, '时间的类型', '选择时间的类型'))}
+                {:W('Form/Input', array('kaquan_begin_timestamp', 'begin_timestamp', '开始日期', '', '格式:2015-11-10'))}
+                {:W('Form/Input', array('kaquan_end_timestamp', 'end_timestamp', '结束日期', '', '格式:2015-11-20'))}
+                {:W('Form/Input', array('kaquan_fixed_term', 'fixed_term', '有效期(天)', '', '自领取后多少天有效'))}
+                {:W('Form/Input', array('', 'quantity', '卡券数量', '', '卡券数量'))}
+                {:W('Form/Input', array('', 'get_limit', '可领券数量', '1', '可领券数量'))}
+                {:W('Form/single_select', array('kaquan_can_share', 'can_share', $can_share, '能否分享', '能否分享'))}
+                {:W('Form/single_select', array('kaquan_can_give_friend', 'can_give_friend', $can_give_friend, '能否转赠', '能否转赠'))}
+                {:W('Form/Input', array('kaquan_deal_detail', 'deal_detail', '团购详情', '', '团购券专用，团购详情。'))}
+                {:W('Form/Input', array('kaquan_least_cost', 'least_cost', '起用金额', '', '代金券专用，表示起用金额'))}
+                {:W('Form/Input', array('kaquan_reduce_cost', 'reduce_cost', '减免金额', '', '代金券专用，表示减免金额'))}
+                {:W('Form/Input', array('kaquan_discount', 'discount', '打折额度', '', '折扣券专用，表示打折额度'))}
+                {:W('Form/Input', array('kaquan_gift', 'gift', '礼品名称', '', '礼品券专用，填写礼品的名称'))}
+                {:W('Form/Input', array('kaquan_default_detail', 'default_detail', '优惠详情', '', '优惠券专用，填写优惠详情'))}
+                <div class="modal-footer" style="background:white;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="go_back();">返回</button>
+                    <button type="button" class="btn btn-primary shenhe_submit" onclick="submit_form(this);">确定</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    function submit_form () {
+    	var url = "?m=Manage&c=Coupon&a=postCreateCoupon";
+    	$.ajax({
+    		type : 'post',
+    		data : $("#kaquan_basic-wizard").serialize(),
+    		url : url,
+    		success : function (data) {
+    			if(data.status == 0)
+    			{
+    				alert(data.content);
+    				go_back();
+    			}
+    			else
+    			{
+    				alert(data.content);
+    			}
+    		}
+    	});
+    };
+
+    
+</script>
+
+<script type="text/javascript">
+    $("#kaquan_deal_detail,#kaquan_least_cost,#kaquan_reduce_cost,#kaquan_discount,#kaquan_gift,#kaquan_default_detail,#kaquan_begin_timestamp,#kaquan_end_timestamp,#kaquan_fixed_term").parents('.form-group').hide();
+    // 改变卡券类型选择框
+    $("#kaquan_card_type").change(function(ev){
+        // 把jQuery改成$效果一样
+        var kaquan_card_type = $(ev.target).val();
+        if(kaquan_card_type == 'GENERAL_COUPON')
+        {
+            $("#kaquan_deal_detail,#kaquan_least_cost,#kaquan_reduce_cost,#kaquan_discount,#kaquan_gift").val('').parents('.form-group').hide();
+            $("#kaquan_default_detail").parents('.form-group').show();
+        }
+        else if(kaquan_card_type == 'GROUPON')
+        {
+            $("#kaquan_default_detail,#kaquan_least_cost,#kaquan_reduce_cost,#kaquan_discount,#kaquan_gift").val('').parents('.form-group').hide();
+            $("#kaquan_deal_detail").parents('.form-group').show();
+        }
+        else if(kaquan_card_type == 'CASH')
+        {
+            $("#kaquan_default_detail,#kaquan_deal_detail,#kaquan_discount,#kaquan_gift").val('').parents('.form-group').hide();
+            $("#kaquan_least_cost,#kaquan_reduce_cost").parents('.form-group').show();
+        }
+        else if(kaquan_card_type == 'DISCOUNT')
+        {
+            $("#kaquan_default_detail,#kaquan_least_cost,#kaquan_reduce_cost,#kaquan_deal_detail,#kaquan_gift").val('').parents('.form-group').hide();
+            $("#kaquan_discount").parents('.form-group').show();
+        }
+        else if(kaquan_card_type == 'GIFT')
+        {
+            $("#kaquan_default_detail,#kaquan_least_cost,#kaquan_reduce_cost,#kaquan_deal_detail,#kaquan_discount").val('').parents('.form-group').hide();
+            $("#kaquan_gift").parents('.form-group').show();
+        }
+    })
+
+    // 改变卡券类型选择框
+    $("#kaquan_type").change(function(ev){
+        var kaquan_type = $(ev.target).val();
+        if(kaquan_type == 'DATE_TYPE_FIX_TIME_RANGE')
+        {
+            $("#kaquan_fixed_term").val('').parents('.form-group').hide();
+            $("#kaquan_begin_timestamp,#kaquan_end_timestamp").parents('.form-group').show();
+        }
+        else if(kaquan_type == 'DATE_TYPE_FIX_TERM')
+        {
+            $("#kaquan_begin_timestamp,#kaquan_end_timestamp").val('').parents('.form-group').hide();
+            $("#kaquan_fixed_term").parents('.form-group').show();
+        }
+    })
+
+    //颜色选择的改变效果
+    $("#kaquan_color").change(function() {
+        $(this).siblings('.chosen-container .chosen-single').css({
+          "background":"red"
+          });
+        // alert($(this).val());
+    })
+
+    // 绑定change事件给#kaquan_basic-wizard元素下的所有select标签(包括后加的元素)
+        $("#kaquan_basic-wizard").on("change",'select',function(){
+            var d = $(this).val();
+            switch(d)
+            {
+            case 'Color010':
+              var m = '#63B359';
+              break;
+            case 'Color020':
+              var m = '#2C9F67';
+              break;
+            case 'Color030':
+              var m = '#509FC9';
+              break;
+            case 'Color040':
+              var m = '#5885CF';
+              break;
+            case 'Color050':
+              var m = '#9062C0';
+              break;
+            case 'Color060':
+              var m = '#D09A45';
+              break;
+            case 'Color070':
+              var m = '#E4B138';
+              break;
+            case 'Color080':
+              var m = '#EE903C';
+              break;
+            case 'Color090':
+              var m = '#DD6549';
+              break;
+            case 'Color100':
+              var m = '#CC463D';
+              break;
+            default:
+
+           }
+            $(this).siblings('.chosen-container').find('.chosen-single').css({"background":m});
+        })
+
+</script>
